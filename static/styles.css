@@ -1,0 +1,201 @@
+@font-face {
+    font-family: Gabriela;
+    src: url(fonts/Gabriela/Gabriela-Regular.ttf);
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url(fonts/Open_Sans/OpenSans-Regular.ttf);
+}
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url(fonts/Source_Code_Pro/SourceCodePro-Regular.ttf);
+}
+
+
+html,body {
+	height:100%;
+	width:100%;
+}
+
+body {
+	background:white url(bg.jpg) no-repeat 0 0 fixed;
+	background-size:cover;
+	color:rgb(85,85,85);
+	float:left;
+	font:400 16px 'Helvetica Neue','Gabriela',arial,sans-serif;
+	overflow:hidden;
+}
+
+
+#overlay {
+	background:rgba(0,0,0,0.5);
+	display:none;
+	height:100%;
+	left:0;
+	position:fixed;
+	top:0;
+	width:100%; 
+}
+
+#main-panel {
+	background:rgba(0,0,0,0.53);
+	border-top:0;
+	min-height:100%;
+	position:relative;
+}
+
+	#main-panel .fx-shadow-overlay {
+	width:100%; height:100%; position:absolute; top:0; left:0; min-height:100px; box-shadow:inset 1px 10px 100px rgba(0,0,0,0.7);
+	}
+
+	#stats1 {
+		position:relative;
+	}
+
+		#stats1 > svg {
+			display:block;
+			position:absolute;
+			top:0;
+			width:100%;
+		}
+
+	#wrapper {
+	width:600px; position:relative; margin:0 auto;
+	}
+
+		#brand {
+			color:rgb(246,255,245);
+			margin:20% 0 0 0;
+			text-align:center;
+			text-shadow:0 -1px 0 rgba(0,0,0,0.8);
+			width:100%; opacity:0.89;
+		}
+			#brand .logo {
+				color:rgba(255,255,255,0.7);
+				float:left; width:100%; 
+				font:100 3.5em 'Helvetica Neue';
+				text-shadow:0 1px 0 rgba(0,0,0,0.1), 0 -1px 0 rgba(255,255,255,0.01);
+			}
+			#brand .tagline {
+			color:rgba(0,27,47,0.1);
+			font-size:1.5em;
+			margin:1px 0 0 0;
+			text-shadow:0 1px 0 rgba(177,222,255,0.3), 0 -1px 0 #001b2f;
+			}
+				#brand .tagline span {
+				font-size:0.5em;
+				}
+		#wrapper .panel-content {
+		/*border-radius:7px; background:rgba(255,255,255,0.15); border:1px solid rgba(0,0,0,0.4); box-shadow:0 1px 0 rgba(255,255,255,0.08); position:relative; width:250px;
+		margin-top:20%;*/
+		}
+			#wrapper .panel-content .panel-content-button {
+				border-radius:inherit;
+				border-top:1px solid rgba(255,255,255,0.08);
+				color:rgba(255,255,255,0.8);
+				cursor:default;
+				font:400 1.2em 'Gabriela', monospace;
+				height:100%; 
+				min-height:10px;
+				padding:20px;
+				text-align:center;
+				text-shadow:0 -1px 0 rgba(0,0,0,0.9); 
+				width:210px;
+			}
+				#wrapper .panel-content .panel-content-button:active {
+				border-top-color:rgba(0,0,0,0.2); border-left:1px solid rgba(0,0,0,0.2); opacity:0.6;
+				}
+		
+		#out {
+			color:rgba(255,255,255,0.8);
+			font:100 2.5em 'Helvetica Neue';
+			font-size:1.2em; text-align:center; width:100%; margin-top:-1%;
+			letter-spacing:1px;
+			margin:30% 0 0 0 ;
+			opacity:0.6;
+			text-shadow:0 1px 0 rgba(0,12,22,0.5);
+		}
+
+#footer {
+background:rgba(0,0,0,0.57); border-top:1px solid rgba(255,255,255,0.08); border-bottom:0; font-size:0.8em; text-align:center; padding-bottom:0;
+font:200 0.8em 'Helvetica Neue'; color:rgba(255,255,255,0.4); text-shadow:0 1px 0 rgba(0,0,0,0.5); min-height:25%; padding-top:22px;
+}
+	#footer p {
+	/*margin-bottom:10px;*/
+	}
+
+.stats {
+	background:transparent;
+	background-size:230px;
+	height:230px;
+	margin:115px auto 0 auto;
+	width:230px;
+}
+
+	.stats .stats-out {
+		color:rgba(255,255,255,0.45);
+		font:100 3.8em 'Helvetica Neue';
+		height:230px;
+		position:relative;
+		text-align:center;
+		top:80px;
+		width:100%;
+	}
+
+
+.panel {
+width:100%; float:left; min-height:50px; background:rgba(0,0,0,0.6); border-bottom:1px solid rgba(0,0,0,0.3); border-top:1px solid rgba(255,255,255,0.07);
+}
+	.panel-content {
+		margin:3% auto; 
+		width:500px;
+	}
+		.panel-content .editor {
+			width:100%; /*background:rgba(0,0,0,0.29); border:1px solid rgba(0,0,0,0.8); border-radius:7px; box-shadow:0 1px 0 rgba(255,255,255,0.1);*/
+		}
+			.panel-content .editor .editor-wrapper {
+				border-radius:inherit;
+				padding:50px 0 0 0;
+				width:96%; 
+			}
+				.panel-content .editor .editor-wrapper .editor-content {
+					border-radius:inherit;
+					font:400 0.9em 'Open Sans', monospace;
+					line-height:1.7em;
+					position:relative;
+					width:100%;
+				}
+					.panel-content .editor .editor-wrapper .editor-content #sid {
+						font-size:1.7em;
+						left:50%;
+						margin:-40px 0 0 -200px;
+						padding-top:25px;
+						position:absolute;
+						text-align:center;
+						top:50%;
+						width:400px;
+					}
+						.panel-content .editor .editor-wrapper .editor-content #sid-input {
+							background:transparent;
+							border:0;
+							color:rgba(255,255,255,0.75);
+							font:100 3em 'Helvetica Neue';
+							left:50%;
+							margin:-40px 0 0 -300px;
+							padding:0;
+							position:absolute;
+							text-align:center;
+							top:50%;
+							width:600px;
+							opacity:0.8;
+						}
+		
+		.panel-content-section {
+		width:100%; margin-bottom:60px; padding:10px;
+		}
+			.panel-content-section p {
+			text-align:justify; font:300 1em 'Open Sans',arial,sans-serif; color:rgb(92,97,95); width:100%;
+			}
+			.panel-content-section p.title {
+			text-align:center; font-size:1.05em; font-weight:600; text-transform:uppercase; color:rgb(55,58,57); margin:0 0 20px 0;
+			}
