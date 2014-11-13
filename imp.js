@@ -236,6 +236,29 @@ function initWebServer() {
 		if(request.url == '/command') {
 			// advertise to console
 			console.log('command detected');
+			// init command buffer
+			var commandBuffer = '';
+
+			request.on('data', function(chunk) {
+				commandBuffer += chunk;
+			})
+
+			request.on('end', function() {
+				// define command from its buffer
+				var command = commandBuffer.split('/');
+
+				if(command[1] == 'value') {
+					// send data to Imp module
+					if(command[2] == '1') {
+						setImpLEDToOn();
+					} else if(command[2] == '0') {
+						setImpLEDToOff();
+					}
+				} else {
+					console.log('Command \'' + command[1] + '\' not yet implemented.');
+				}
+
+			});
 		} else {
 			// route request to path
 			route((request.url == '/' ? '/index.html' : request.url), request, response);
