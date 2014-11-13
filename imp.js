@@ -2,23 +2,13 @@
 * Provided under the MIT License (c) 2014
 * See LICENSE @file for details.
 *
-* @file scanner.js
+* @file imp.js
 *
-* @author juanvallejo
-* @date 10/15/14
+* @author juanvallejo, jlpeyton
+* @date 11/13/14
 *
-* Scanner application 'server'. Handles all data processing and i/o.
-* Reads data from a local mysql database, builds an internal structure
-* with it, and allows for easy manipulation of it. Outputs to .xlsx file.
-*
-* Note: @callback_params are parameters passed to a callback function
-*
-* Important: Requires the following dependencies / node.js packages:
-*
-*		- csv 	-> npm install fast-csv
-* 		- excel -> npm install excel
-* 		- mysql	-> npm install mysql
-* 		- xlsx 	-> npm install xlsx-writer
+* Local application 'server'. Handles all data processing and i/o.
+* Relays data from command line / web interface to Electric Imp Cloud Agent
 */
 
 /**
