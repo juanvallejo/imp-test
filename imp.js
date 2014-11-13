@@ -153,36 +153,6 @@ process.stdin.on('data', function(key) {
 });
 
 /**
- * define util functions for program
- */
-
-/**
- * sends a request to imp agent with param
- * "?led=1" instructing led to turn on
- *
- * @event data
-**/
-function setImpLEDToOn() {
-	console.log('turning on LED');
-	clearTimeout(timeout);
-
-	sendDataToImp(1);
-}
-
-/**
- * sends a request to imp agent with param
- * "?led=0" instructing led to turn off
- *
- * @event data
-**/
-function setImpLEDToOff() {
-	console.log('turning off LED');
-
-	// send off data to imp
-	sendDataToImp(0);
-}
-
-/**
  * inits http function that creates web interface for interacting
  * with application @ address
  *
@@ -247,20 +217,32 @@ function initWebServer() {
 				// define command from its buffer
 				var command = commandBuffer.split('/');
 
+				console.log('Received command: ' + command[2]);
+
 				if(command[1] == 'value') {
-					// send data to Imp module
-					if(command[2] == '1') {
-						setImpLEDToOn();
-					} else if(command[2] == '0') {
-						setImpLEDToOff();
+					if(ready) {
+						// send data to Imp module
+						if(command[2] == '1') {
+							// turn LED on and wait for response before setting program ready state to true
+							setImpLEDToOn();
+						} else if(command[2] == '0') {
+							// turn LED on and wait for response before setting program ready state to true
+							setImpLEDToOff();
+						}
+					} else {
+						// advertise program is not ready for next request to be processed
+						console.log('Unable to process request at this time');
 					}
 				} else {
 					console.log('Command \'' + command[1] + '\' not yet implemented.');
 				}
 
 			});
+
+			// send response back to client
+			response.end('success');
 		} else {
-			// route request to path
+			// route request to file path
 			route((request.url == '/' ? '/index.html' : request.url), request, response);
 		}
 	});
@@ -270,12 +252,43 @@ function initWebServer() {
 }
 
 /**
+ * define util functions for program
+ */
+
+/**
+ * sends a request to imp agent with param
+ * "?led=1" instructing led to turn on
+ *
+ * @param callback {Function} to call after response from server is received
+**/
+function setImpLEDToOn(callback) {
+	console.log('turning on LED');
+
+	// send on data to imp
+	sendDataToImp(1, callback);
+}
+
+/**
+ * sends a request to imp agent with param
+ * "?led=0" instructing led to turn off
+ *
+ * @param callback {Function} to call after response from server is received
+**/
+function setImpLEDToOff(callback) {
+	console.log('turning off LED');
+
+	// send off data to imp
+	sendDataToImp(0, callback);
+}
+
+/**
  * Sends an http request to imp-board server with passed command
  * as a GET parameter
  *
  * @param command {int} defining 'data' to send to board with param of 'led'
+ * @param callback {Function} to call after response from server is received
 **/
-function sendDataToImp(command) {
+function sendDataToImp(command, callback) {
 	//send request to imp
 	var request = https.request({
 		host : WEB_HOST,
@@ -292,10 +305,15 @@ function sendDataToImp(command) {
 
 		// once all response packets have fully arrived
 		response.on('end', function() {
+			// advertise data chunks received
 			console.log('[SERVER] ' + data);
 
 			// reset chunk buffer
 			data = '';
+
+			// make sure callback is of type function and call it
+			callback = callback || function() {};
+			callback.call(this, data);
 		});
 	});
 
