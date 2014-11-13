@@ -1,74 +1,44 @@
+<!doctype html>
 <html>
-<head>  
-    <title>Electric Imp Breakout</title>
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-    <script>
-        $( function() {   
-            // Edit these values first! The externalURL variable should be the
-            // unique URL of your agent. e.g. the last part of:
-            // https://agent.electricimp.com/UpyYpRLmBB7m
-            // pollRate defines how often the values on your page will refresh.
-            var externalURL ="FlA7isVKL8K-";
-            var pollRate ="1000";
-
-            function poll(){
-                // Construct an ajax() GET request.
-                // http://www.w3schools.com/jquery/ajax_ajax.asp
-
-                $.ajax({
-                    type: "get",
-                    url: "https://agent.electricimp.com/"+externalURL+'?pin=1',  // URL of our imp agent.
-                    dataType: "json",   // Expect JSON-formatted response from agent.
-                    success: function(agentMsg) {   // Function to run when request succeeds.
-
-                        console.log(agentMsg);
-
-                        // jQuery find "pin1" id and overwrite its data with "pin1" key value in agentMsg
-                        $("#pin1").html(agentMsg.pin1);             
-                        $("#pin2").html(agentMsg.pin2);
-                        $("#pin5").html(agentMsg.pin5);
-                        $("#pin7").html(agentMsg.pin7);
-                        $("#pin8").html(agentMsg.pin8);
-                        $("#pin9").html(agentMsg.pin9);
-                        $("#vin").html(agentMsg.voltage);
-
-                        updateBG(agentMsg.pin5);    // Try this if you have a photocell connected to pin 5
-                    },
-                    error: function(err) {
-                        console.log("err"+ err.status)
-                    }
-                });
-            }
-
-            // setInterval is Javascript method to call a function at a specified interval.
-            // http://www.w3schools.com/jsref/met_win_setinterval.asp
-            setInterval(function(){ poll(); }, pollRate);
-
-            // This function updates the 
-            function updateBG(lightSensor)
-            {
-                if (lightSensor > 30000)
-                {
-                    document.body.style.backgroundColor = "#FFFFFF";
-                }
-                else
-                {
-                    document.body.style.backgroundColor = "#AAAAAA";
-                }
-            }
-        });
-    </script>
+<head>
+    <title>Imp</title>
+    <link rel="stylesheet" href="static/reset.css"/>
+    <link rel="stylesheet" href="static/styles.css"/>
+    <script src="static/progressbar.min.js"></script>
+    <script src="static/data.js"></script>
 </head>
-    <body>
-        <h3>Imp Pins:</h3>
-        <div id="pins">
-        <p> <b>Pin 1:</b> <span id="pin1"><!-- This is where the pin 1 reading will go --></span></p>
-        <p> <b>Pin 2:</b> <span id="pin2"><!-- This is where the pin 2 reading will go --></span></p>
-        <p> <b>Pin 5:</b> <span id="pin5"><!-- This is where the pin 5 reading will go --></span></p>
-        <p> <b>Pin 7:</b> <span id="pin7"><!-- This is where the pin 7 reading will go --></span></p>
-        <p> <b>Pin 8:</b> <span id="pin8"><!-- This is where the pin 8 reading will go --></span></p>
-        <p> <b>Pin 9:</b> <span id="pin9"><!-- This is where the pin 9 reading will go --></span></p>
-        <p> <b>Voltage:</b> <span id="vin"><!-- This is where the voltage reading will go --></span></p>
-    </body>
+<body>
+<div id="main-panel" class="panel">
+    <div class="fx-shadow-overlay"></div><!--#fx-shadow-overlay-->
+    <div id="wrapper">
+        <div id="brand">
+            <!-- <p class="logo">Scan Your ID</p>
+            <p class="tagline">Please scan your ID to continue</p> -->
+        </div><!--#brand-->
+        <div class="panel-content">
+            <div class="editor">
+            <div class="editor-wrapper">
+                <div class="editor-content Bloom-colorize">
+                    <!-- <div id="sid"></div> -->
+                    <input type="text" placeholder="Enter a command" id="sid-input" />
+                </div><!--.editor-content-->
+            </div><!--.editor-wrapper-->
+        </div><!--.editor-->
+        </div><!--.panel-content-->
+
+        <div class="stats" id="stats1">
+            <div class="stats-out" id="stats1Out">0</div><!--.stats-out-->
+        </div><!--.circle-->
+
+        <div id="out">Hold down a key to send a command</div>
+
+    </div><!--#wrapper-->
+</div><!--#main-panel-->
+<div class="panel" id="editorPanel" style="min-height:5%;">
+    <div class="panel-content">
+        
+    </div><!--.panel-content-->
+</div><!--.panel-->
+<div id="overlay"></div><!--#overlay-->
+</body>
 </html>
